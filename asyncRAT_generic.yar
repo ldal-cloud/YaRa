@@ -10,7 +10,7 @@ rule APT_CRIME_MAL_AsyncRAT_Generic
         tlp         = "CLEAR"
         confidence  = "medium-high"
         scope       = "hunting, dfir, memoria"
-        type:       = "CS"
+        description = "CS"
 
     strings:
         // ---- Indicadores fuertes: ----
