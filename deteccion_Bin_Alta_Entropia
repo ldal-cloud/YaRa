@@ -1,0 +1,16 @@
+import "math"
+import "pe"
+
+rule Posible_Binario_Empacado_Custom
+{
+    meta:
+        description = "Detecta binarios con secciones de alta entropia (probable packing/cifrado)"
+
+    condition:
+        pe.is_pe and
+        for any i in (0..pe.number_of_sections - 1):
+        (
+            math.entropy(pe.sections[i].raw_data_offset, pe.sections[i].raw_data_size) >= 7.5
+            and pe.sections[i].raw_data_size > 4096
+        )
+}
