@@ -1,0 +1,15 @@
+import "pe"
+
+rule Posible_Process_Injection_API_Combo
+{
+    meta:
+        description = "process hollowing/injection"
+
+    condition:
+        pe.is_pe and
+        pe.imports("kernel32.dll", "VirtualAllocEx") and
+        pe.imports("kernel32.dll", "WriteProcessMemory") and
+        pe.imports("kernel32.dll", "CreateRemoteThread") and
+        (pe.imports("ntdll.dll", "NtUnmapViewOfSection") or
+         pe.imports("kernel32.dll", "SetThreadContext"))
+}
